@@ -1,0 +1,41 @@
+integrator              = sd
+dt                      = 0.004
+nsteps                  = 2500000
+nstxtcout               = 2500
+nstvout                 = 2500
+nstfout                 = 2500
+nstcalcenergy           = 100
+nstenergy               = 1000
+nstlog                  = 1000
+;
+cutoff-scheme           = Verlet
+nstlist                 = 20
+rlist                   = 1.2
+vdwtype                 = Cut-off
+vdw-modifier            = Force-switch
+rvdw_switch             = 1.0
+rvdw                    = 1.2
+coulombtype             = pme
+rcoulomb                = 1.2
+;
+tc_grps                 = system
+tau_t                   = 1.0
+ref_t                   = 300
+;
+pcoupl                  = Parrinello-Rahman
+pcoupltype              = isotropic
+tau_p                   = 5.0
+compressibility         = 4.5e-5
+ref_p                   = 1.0
+;
+constraints             = h-bonds
+constraint_algorithm    = LINCS
+lincs_iter              = 1
+lincs_order             = 6
+continuation            = yes
+;
+nstcomm                 = 100
+comm_mode               = linear
+comm_grps               = system
+;
+refcoord_scaling        = com

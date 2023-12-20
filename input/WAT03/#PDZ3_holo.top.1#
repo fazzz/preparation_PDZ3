@@ -1,0 +1,49 @@
+;
+;	File 'PDZ3_holo.top' was generated
+;	By user: yamamori (10012)
+;	On host: pc115198
+;	At date: Thu May  5 21:58:20 2022
+;
+;	This is a standalone topology file
+;
+;	Created by:
+;	                  :-) GROMACS - gmx pdb2gmx, 2022-beta1 (-:
+;	
+;	Executable:   /home/yamamori/opt/gmx2022/bin//gmx
+;	Data prefix:  /home/yamamori/opt/gmx2022
+;	Working dir:  /work20/yamamori/PDZ-domain_apo-holo/holo/preparation/input/TOP02
+;	Command line:
+;	  gmx pdb2gmx -f ../PDB01/PDZ3_holo.pdb -ff amber03 -water tip3p -ignh -heavyh -vsite hydrogens -o PDZ3_holo.gro -p PDZ3_holo.top
+;	Force field was read from the standard GROMACS share directory.
+;
+
+#define HEAVY_H
+
+; Include forcefield parameters
+#include "amber03.ff/forcefield.itp"
+
+; Include chain topologies
+#include "PDZ3_holo_Protein_chain_A.itp"
+#include "PDZ3_holo_Protein_chain_B.itp"
+
+; Include water topology
+#include "amber03.ff/tip3p.itp"
+
+#ifdef POSRES_WATER
+; Position restraint for each water oxygen
+[ position_restraints ]
+;  i funct       fcx        fcy        fcz
+   1    1       1000       1000       1000
+#endif
+
+; Include topology for ions
+#include "amber03.ff/ions.itp"
+
+[ system ]
+; Name
+Protein
+
+[ molecules ]
+; Compound        #mols
+Protein_chain_A     1
+Protein_chain_B     1

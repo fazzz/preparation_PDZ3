@@ -1,0 +1,30 @@
+# This scripts performs preparation and equilibiration of open-state PDZ3 domain for MD simulation
+
+# Download PDB and prepare topology files
+
+cd input
+./makePDB01.sh
+./makeTOP02.sh
+./solvWAT03.sh
+./addION04.sh
+
+# Then the follwing directry are generated.
+# PDB01/  TOP02/  WAT03/
+
+ln -s WAT03/PDZ3_holo.top initial.gro
+ln -s WAT03/PDZ3_holo.top topol.top
+
+# Edit topol_restraint.top system.txt
+
+cd ..
+
+qsub 10steps_preparation.sh
+
+# Then the follwing directories are generated.
+
+step01_initial_minimization_of_mobile_molecules/  step03_initial_minimization_of_large_molecules/    step05_final_minimization_of_system/            step07_continued_relaxzation_of_large_molecules/  step09_unrestrained_relaxzation/
+step02_initial_relaxzation_of_mobile_molecules/   step04_continued_minimization_of_large_molecules/  step06_initial_relaxzation_of_large_molecules/  step08_relaxzation_of_non-backbone_atoms/         step10_final_density_stabilization/
+
+./density_stability.sh
+
+# Then density.eps is generated.
